@@ -13,28 +13,19 @@ const LOGIN = gql`
 `;
 
 const Component = () => {
-  // const { loading, error, data, refetch } = useQuery(LOGIN);
-  const [runQuery, { called, loading, data }] = useLazyQuery(LOGIN);
+  const { loading, error, data, refetch, networkStatus } = useQuery(LOGIN);
+  // const [runQuery, { called, loading, data }] = useLazyQuery(LOGIN);
+  if (loading) return <p>Loading...</p>;
 
-  if (loading) return <p>Loading..."</p>;
-
-  return (
-    <>
-      <button onClick={() => runQuery()}>クリックしてね</button>
-      {data && <p>hello my name is {data.viewer.login}</p>}
-    </>
-  );
+  return <>{data && <p>hello my name is {data.viewer.login}</p>}</>;
 };
 
 const Index = () => (
   <ApolloProvider client={client}>
-    <div>
-      <Link href="/about">
-        <a title="about">About Page</a>
-      </Link>
-      <p>Hello Next.js</p>
-    </div>
     <Component />
+    <Link href="/about">
+      <a title="about">About Page</a>
+    </Link>
   </ApolloProvider>
 );
 

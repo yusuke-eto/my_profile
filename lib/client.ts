@@ -10,7 +10,7 @@ export const client = new ApolloClient({
     headers: {
       Accept: "application/json",
       "content-type": "application/json",
-      authorization: `Bearer 317f6f4d0470c1e714e09367e15c3f2b6562e7d7`
+      authorization: "Bearer bc0fc601352bf0e0a8e61176db02bde4124de637"
     },
     fetch
   })

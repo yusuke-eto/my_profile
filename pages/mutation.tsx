@@ -1,28 +1,28 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { ApolloProvider, useLazyQuery } from "@apollo/react-hooks";
+import { ApolloProvider, useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { client } from "../lib/client";
 
-const LOGIN = gql`
-  query {
-    viewer {
-      login
+const ADD_STAR = gql`
+  mutation {
+    addStar(input: { starrableId: "MDEwOlJlcG9zaXRvcnk1MDE0Nzk5Mg==" }) {
+      starrable {
+        id
+        viewerHasStarred
+      }
     }
   }
 `;
 
 const Component = () => {
-  const [getData, { loading, data }] = useLazyQuery(LOGIN);
+  const [addStar, { loading }] = useMutation(ADD_STAR);
   if (loading) return <p>Loading...</p>;
-
-  console.log(data);
 
   return (
     <>
-      <button onClick={() => getData()}>クリックしてね</button>
+      <button onClick={() => addStar()}>クリックしてね</button>
       <br />
-      {data && <p>hello my name is {data.viewer.login}</p>}
     </>
   );
 };
